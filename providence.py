@@ -72,9 +72,9 @@ elif mode != "index":
             print(countDown)
             imagePathWithoutImageDirectory = imagePath.replace(inputDirectory, "")
             if os.path.exists(imagePath):
-                os.utime(imagePath, (int(time.time()) , int(time.time()) ))
+                os.utime(imagePath, (int(time.time()) + currentIteration , int(time.time()) + currentIteration ))
             if os.path.exists(txtPath):
-                os.utime(txtPath, (int(time.time()) , int(time.time()) ))
+                os.utime(txtPath, (int(time.time()) + currentIteration , int(time.time()) + currentIteration ))
         print("... FINISHED SORT")
     if mode == "copy":
         print(f"Copying and sorting all images and .txt files from {inputDirectory} to {outputDirectory} ...")
