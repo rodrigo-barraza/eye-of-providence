@@ -8,6 +8,7 @@ from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 memery = Memery()
 currentIteration = 0
+currentTime = int(time.time())
 cpuCount = os.cpu_count()
 
 # Indexing
@@ -17,7 +18,7 @@ cpuCount = os.cpu_count()
 # Copying
 # python providence.py --mode "copy" --query "portrait" --input "/mnt/c/AI/training/datasets/raw-set2" --output "/mnt/c/AI/training/datasets/sorting" --reindex "false"
 # Sorting
-# python "/mnt/c/develop/eye-of-providence/providence.py" --mode "sort" --query "colorful girl" --input "/mnt/c/AI/training/datasets/curated" --reindex "false"
+# python "/mnt/c/develop/eye-of-providence/providence.py" --mode "sort" --query "bat" --input "/mnt/z/AI/training/datasets/comics/harley-quinn" --reindex "false"
 
 # Command Line Arguments
 argv = sys.argv[1:]
@@ -67,14 +68,14 @@ elif mode != "index":
         print(f"Sorting all images and .txt files in {inputDirectory} ...")
         for imagePath in imagePaths:
             txtPath = os.path.splitext(imagePath)[0]+'.txt'
-            currentIteration = currentIteration + 1
+            currentIteration += 1
             countDown = len(imagePaths) - currentIteration
             print(countDown)
-            imagePathWithoutImageDirectory = imagePath.replace(inputDirectory, "")
+            currentTime += 1
             if os.path.exists(imagePath):
-                os.utime(imagePath, (int(time.time()) + currentIteration , int(time.time()) + currentIteration ))
+                os.utime(imagePath, (currentTime, currentTime))
             if os.path.exists(txtPath):
-                os.utime(txtPath, (int(time.time()) + currentIteration , int(time.time()) + currentIteration ))
+                os.utime(txtPath, (currentTime, currentTime))
         print("... FINISHED SORT")
     if mode == "copy":
         print(f"Copying and sorting all images and .txt files from {inputDirectory} to {outputDirectory} ...")
